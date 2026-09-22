@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
+import _config from "./config.js";
 
 export const connectDb = async () => {
     try {
-        if (!process.env.MONGO_URI) {
-            throw new Error("MONGO_URI is missing from .env");
+        if (!_config.MONGO_URI) {
+            throw new Error("MONGO_URI is missing from configuration");
         }
 
         console.log("⏳ Connecting to MongoDB...");
 
-        await mongoose.connect(process.env.MONGO_URI, {
+        await mongoose.connect(_config.MONGO_URI, {
             dbName: "vault-backend"
         });
 

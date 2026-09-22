@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 
 const thoughtSchema = new mongoose.Schema({
-
     content: {
         type: String,
         required: [true, "Please provide the thought."]
@@ -12,6 +11,6 @@ const thoughtSchema = new mongoose.Schema({
     }
 });
 
-const thoughtModel = new mongoose.model("thought", thoughtSchema);
+const thoughtModel = mongoose.model("thought", thoughtSchema);
 
 export default thoughtModel;

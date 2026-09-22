@@ -1,13 +1,13 @@
-import thoughtModel from "../models/thoughtModel.js";
+import mongoose from "mongoose";
+import thoughtModel from "../models/thought.model.js";
 
 // Health check endpoint
 const healthCheck = (req, res) => {
     res.status(200).json(
         {
-            message: "API is working properly!"
+            message: "Vautl Backend is working ✌️!"
         });
 };
-
 
 // Get all thoughts
 const getAllThoughts = async (req, res) => {
@@ -15,7 +15,7 @@ const getAllThoughts = async (req, res) => {
         const getThoughts = await thoughtModel.find().sort({ date: -1 });
 
         return res.status(200).json({
-            message: "Working Properly!",
+            message: "Vautl Backend is working ✌️!",
             thoughts: getThoughts
         });
 

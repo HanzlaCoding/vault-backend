@@ -9,8 +9,9 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use("/api/v0", thoughtRoutes);
 app.use(morgan('dev'));
 
+// Routes
+app.use("/api/v0", thoughtRoutes);
 
 export default app;
