@@ -12,10 +12,11 @@ const healthCheck = (req, res) => {
 // Get all thoughts
 const getAllThoughts = async (req, res) => {
     try {
-        const getThoughts = await thoughtModel.find().sort({ date: -1 });
+        const user = req.user;
+        const getThoughts = await thoughtModel.find({ userId: user.id }).sort({ date: -1 });
 
         return res.status(200).json({
-            message: "Vautl Backend is working ✌️!",
+            message: "Thought fetch successfully!",
             thoughts: getThoughts
         });
 

@@ -46,16 +46,8 @@ const register = async (req, res) => {
         res.cookie("token", token, {
             httpOnly: true,
             secure: false,
-            sameSite: "strict",
-            maxAge: _config.JWT_EXPIRES_IN
+            maxAge: 24 * 60 * 60 * 1000
         });
-
-        if (!newUser) {
-            return res.status(400).json({
-                success: false,
-                message: "User not created."
-            });
-        }
 
         return res.status(201).json({
             success: true,
@@ -93,6 +85,7 @@ const login = async (req, res) => {
 
         // Checking password
         const isPasswordValid = await bcrypt.compare(password, user.password);
+
         if (!isPasswordValid) {
             return res.status(400).json({
                 success: false,
@@ -100,11 +93,41 @@ const login = async (req, res) => {
             });
         }
 
-        return res.status(200).json({ success: true, message: "User logged in successfully." });
+        // Creating JWT token
+        const token = jwt.sign(
+            {
+                id: user._id,
+                email: user.email
+            },
+            _config.JWT_SECRET,
+            { expiresIn: _config.JWT_EXPIRES_IN }
+        );
+
+        res.cookie("token", token, {
+            httpOnly: true,
+            secure: false,
+            maxAge: 24 * 60 * 60 * 1000
+        });
+
+        if (!token) {
+            return res.status(400).json({
+                success: false,
+                message: "Failed to generate token. Please try again."
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            message: "User logged in successfully.",
+            token: token
+        });
 
     } catch (error) {
         console.error(error);
-        return res.status(500).json({ success: false, message: "Internal server error." });
+        return res.status(500).json({
+            success: false,
+            message: "Internal server error."
+        });
     }
 };
 
