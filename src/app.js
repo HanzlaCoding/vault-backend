@@ -12,7 +12,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: [
+        'https://vault-frontend-eta.vercel.app',
+        'http://localhost:5173'
+    ],
     credentials: true,
     requestedHeaders: ['Content-Type', 'Authorization'],
     methods: ['GET', 'POST', 'PUT', 'DELETE']
