@@ -1,6 +1,6 @@
-import app from "./app.js";
-import { connectDb } from "./config/db.js";
-import _config from "./config/config.js";
+import app from "./src/app.js";
+import { connectDb } from "./src/config/db.js";
+import _config from "./src/config/config.js";
 
 // ==============================
 // Start Server
