@@ -6,6 +6,10 @@ import _config from "./src/config/config.js";
 // Start Server
 // ==============================
 
+app.get("/", (req, res) => {
+    res.send("Welcome to the Vault API");
+});
+
 const startServer = async () => {
     try {
         console.log("\n🚀 Starting server...\n");
