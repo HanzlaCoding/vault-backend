@@ -21,7 +21,7 @@ const register = async (req, res) => {
                 success: false,
                 message: "User already exists."
             });
-        }
+        };
 
         // Hashing password
         const salt = await bcrypt.genSalt(10);

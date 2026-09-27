@@ -8,15 +8,15 @@ const router = Router();
 router.get("/health", healthCheck);
 
 // GET: Retrieve all thoughts
-router.get("/getThoughts", authenticate, getAllThoughts);
+router.get("/thoughts", authenticate, getAllThoughts);
 
 // POST: Create a new thought
-router.post("/createThought", authenticate, createThought);
+router.post("/thoughts", authenticate, createThought);
 
 // PUT: Update an existing thought
-router.put("/updateThought/:id", authenticate, updateThought);
+router.put("/thoughts/:id", authenticate, updateThought);
 
 // DELETE: Delete a thought
-router.delete("/deleteThought/:id", authenticate, deleteThought);
+router.delete("/thoughts/:id", authenticate, deleteThought);
 
 export default router;

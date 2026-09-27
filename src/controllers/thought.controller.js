@@ -42,7 +42,8 @@ const createThought = async (req, res) => {
         }
 
         const newThought = await thoughtModel.create({
-            content: content
+            content: content,
+            userId: req.user.id
         });
 
         return res.status(201).json({
@@ -78,15 +79,10 @@ const updateThought = async (req, res) => {
             });
         }
 
-        const updatedThought = await thoughtModel.findByIdAndUpdate(
-            id,
-            {
-                content: content
-            },
-            {
-                new: true,
-                runValidators: true
-            }
+        const updatedThought = await thoughtModel.findOneAndUpdate(
+            { _id: id, userId: req.user.id },
+            { content },
+            { new: true, runValidators: true }
         );
 
         if (!updatedThought) {
@@ -121,7 +117,10 @@ const deleteThought = async (req, res) => {
             });
         }
 
-        const deletedThought = await thoughtModel.findByIdAndDelete({ _id: id });
+        const deletedThought = await thoughtModel.findOneAndDelete({
+            _id: id,
+            userId: req.user.id
+        });
 
         if (!deletedThought) {
             return res.status(404).json({
